@@ -1,6 +1,5 @@
 let W;
 let H;
-let r = 10;
 
 let c;
 let grid = [];

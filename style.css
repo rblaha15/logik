@@ -1,8 +1,11 @@
 html, body {
-    margin: 0;
+    margin: 10;
     padding: 0;
-  }
-  canvas {
+}
+canvas {
     display: block;
-  }
+}
+.numtext {
+    width: 30px;
+}
   
