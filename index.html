@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.3.1/lib/p5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.3.1/lib/addons/p5.sound.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
 </head>
@@ -11,19 +11,22 @@
 <body>
     <h1>Logik!</h1>
 
-    <form name="settings" method="GET" onsubmit="checkForm()">
-        <p>Počet řádků: <input name="rows" , type="number" , class="numtext" , value="10"></p>
+    <form name="settings" method="GET">
+        <p>Počet řádků: <input name="rows" , type="number" , class="numtext"></p>
         <p>Snadný režim <input name="easyMode" , type="checkbox"></p>
-        <p>Opakování <input name="repeat" , type="checkbox" , checked></p>
+        <p>Opakování <input name="repeat" , type="checkbox"></p>
 
         <p><input type="submit" value="Potvrdit"></p>
     </form>
 
 
+    <script src="settings.js"></script>
+    <script src="game.js"></script>
     <script src="logik.js"></script>
     <script src="constants.js"></script>
     <script src="circle.js"></script>
-    <script src="settings.js"></script>
+    <script src="box.js"></script>
+    <script src="button.js"></script>
 </body>
 
 </html>

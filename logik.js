@@ -2,7 +2,12 @@ let W;
 let H;
 
 let c;
-let grid = [];
+let g;
+const big_circles = [];
+const small_circles = [];
+const boxes = [];
+let currentComb = [];
+let btn;
 
 function setup() {
     W = ((PADDING * 2) + (5 * (BIG_CIRCLE_WIDTH + 2 * BIG_CIRCLE_PAD) + BIG_CIRCLE_PAD) +
@@ -13,16 +18,71 @@ function setup() {
 
     createCanvas(W, H)
 
+    g = new Game(r, rep, easy)
+
+    for (let i = 0; i < 5; i++) {
+        currentComb.push(EMPTY);
+    }
+
     for (let i = 0; i < r; i++) {
-        grid.push([])
-        for (let j = 0; j < 5; j++) {
-            grid[i].push(
+        big_circles.push([])
+        for (let j = 4; j >= 0; j--) {
+            big_circles[i].push(
                 new Circle(
-                    PADDING + j * (BIG_CIRCLE_WIDTH + BIG_CIRCLE_PAD * 2) + BIG_CIRCLE_WIDTH / 2 + BIG_CIRCLE_PAD,
+                    W - (PADDING + j * (BIG_CIRCLE_WIDTH + BIG_CIRCLE_PAD * 2) + BIG_CIRCLE_WIDTH / 2 + BIG_CIRCLE_PAD),
                     PADDING + i * (BIG_CIRCLE_WIDTH + BIG_CIRCLE_PAD * 2) + BIG_CIRCLE_WIDTH / 2 + BIG_CIRCLE_PAD,
                     BIG_CIRCLE_WIDTH
                 )
             );
+        }
+    }
+    for (let i = 0; i < r; i++) {
+        small_circles.push([])
+        for (let j = 0; j < 5; j++) {
+            small_circles[i].push(
+                new Circle(
+                    PADDING + j * (SMALL_CIRCLE_WIDTH + SMALL_CIRCLE_PAD * 2) + SMALL_CIRCLE_WIDTH / 2 + SMALL_CIRCLE_PAD,
+                    PADDING + i * (BIG_CIRCLE_WIDTH + BIG_CIRCLE_PAD * 2) + BIG_CIRCLE_WIDTH / 2 + BIG_CIRCLE_PAD,
+                    SMALL_CIRCLE_WIDTH
+                )
+            );
+        }
+    }
+
+    for (let i = 0; i < COLS; i++) {
+        boxes.push([])
+        for (let j = 4; j >= 0; j--) {
+            boxes[i].push(
+                new Box(
+                    W - (PADDING + j * (BIG_CIRCLE_WIDTH + BIG_CIRCLE_PAD * 2) +
+                        SQUARE_WIDTH + SQARES_PAD + SQ_PAD),
+                    PADDING + r * (BIG_CIRCLE_WIDTH + BIG_CIRCLE_PAD * 2) +
+                    SQARES_PAD + i * SQUARE_WIDTH + SQ_PAD,
+                    SQUARE_WIDTH,
+                    COLORS[i],
+                    () => {
+                        currentComb[4 - j] = COLORS[i]
+                    }
+                )
+            );
+        }
+    }
+
+    btn = new Button(PADDING, H - (PADDING + BTN_SIZE[1]), BTN_SIZE[0], BTN_SIZE[1], "Potvrdit", FONT_SIZE, () => {
+        g.move(currentComb)
+        currentComb = []
+        for (let i = 0; i < 5; i++) {
+            currentComb.push(EMPTY);
+        }
+    })
+}
+
+
+function mouseClicked() {
+    btn.clicked(mouseX, mouseY)
+    for (let i = 0; i < COLS; i++) {
+        for (let j = 0; j < 5; j++) {
+            boxes[i][j].clicked(mouseX, mouseY)
         }
     }
 }
@@ -33,7 +93,21 @@ function draw() {
 
     for (let i = 0; i < r; i++) {
         for (let j = 0; j < 5; j++) {
-            grid[i][j].show();
+            if (i == g.row) {
+                big_circles[i][j].color = currentComb[j]
+            } else {
+                big_circles[i][j].color = g.grid_pl[i][j]
+            }
+            small_circles[i][j].color = g.grid_pc[i][j]
+            big_circles[i][j].show();
+            small_circles[i][j].show();
         }
     }
+    for (let i = 0; i < COLS; i++) {
+        for (let j = 0; j < 5; j++) {
+            boxes[i][j].show();
+        }
+    }
+
+    btn.show()
 }
