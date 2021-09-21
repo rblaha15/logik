@@ -21,5 +21,7 @@ for (pair of options) {
 }
 
 let r = document.forms["settings"]["rows"].value
-let easy = document.forms["settings"]["easyMode"].checked == "on"
-let rep = document.forms["settings"]["repeat"].checked == "on"
+let easy = document.forms["settings"]["easyMode"].checked
+let rep = document.forms["settings"]["repeat"].checked
+
+console.log(document.forms["settings"]["easyMode"].checked)
