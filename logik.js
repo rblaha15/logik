@@ -81,6 +81,7 @@ function setup() {
         if (g.row == -1) {
             end = true
             endtext = "LOSE"
+            revealComb()
         }
 
         if (g.grid_pc[g.row + 1].filter(x => { return x === RIGHT }).length == 5) {
@@ -98,6 +99,25 @@ function mouseClicked() {
         for (let j = 0; j < 5; j++) {
             boxes[i][j].clicked(mouseX, mouseY)
         }
+    }
+}
+
+let answer;
+
+function revealComb() {
+    answer = []
+
+    resizeCanvas(W, H + BIG_CIRCLE_WIDTH + BIG_CIRCLE_PAD + SQARES_PAD)
+
+    for (let i = 4; i >= 0; i--) {
+        answer.push(
+            new Circle(
+                W - (PADDING + i * (BIG_CIRCLE_WIDTH + BIG_CIRCLE_PAD * 2) + BIG_CIRCLE_WIDTH / 2 + BIG_CIRCLE_PAD),
+                H - PADDING + SQARES_PAD + BIG_CIRCLE_PAD + BIG_CIRCLE_WIDTH / 2,
+                BIG_CIRCLE_WIDTH
+            )
+        )
+        answer[answer.length - 1].color = g.reveal_combination()[i]
     }
 }
 
@@ -122,6 +142,12 @@ function draw() {
             boxes[i][j].show();
         }
     }
+    if (end) {
+
+        for (let j = 0; j < answer.length; j++) {
+            answer[j].show()
+        }
+    }
 
     btn.show()
 
@@ -136,4 +162,6 @@ function draw() {
         PADDING,
         H - (PADDING + BTN_SIZE[1] + PADDING)
     )
+
+
 }

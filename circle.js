@@ -7,6 +7,7 @@ class Circle {
     }
 
     show() {
+
         if (this.color != EMPTY) {
             fill(this.color);
             circle(this.x, this.y, this.d);
