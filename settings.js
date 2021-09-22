@@ -24,4 +24,8 @@ let r = document.forms["settings"]["rows"].value
 let easy = document.forms["settings"]["easyMode"].checked
 let rep = document.forms["settings"]["repeat"].checked
 
-console.log(document.forms["settings"]["easyMode"].checked)
+if (r === "") {
+    document.forms["settings"]["rows"].value = 10
+
+    document.forms["settings"].submit()
+}

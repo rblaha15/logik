@@ -9,6 +9,9 @@ const boxes = [];
 let currentComb = [];
 let btn;
 
+let end = false;
+let endtext = "";
+
 function setup() {
     W = ((PADDING * 2) + (5 * (BIG_CIRCLE_WIDTH + 2 * BIG_CIRCLE_PAD) + BIG_CIRCLE_PAD) +
         (5 * (SMALL_CIRCLE_WIDTH + 2 * SMALL_CIRCLE_PAD) + SMALL_CIRCLE_PAD));
@@ -74,11 +77,22 @@ function setup() {
         for (let i = 0; i < 5; i++) {
             currentComb.push(EMPTY);
         }
+
+        if (g.row == -1) {
+            end = true
+            endtext = "LOSE"
+        }
+
+        if (g.grid_pc[g.row + 1].filter(x => { return x === RIGHT }).length == 5) {
+            end = true
+            endtext = "WIN"
+        }
     })
 }
 
 
 function mouseClicked() {
+    if (end) return
     btn.clicked(mouseX, mouseY)
     for (let i = 0; i < COLS; i++) {
         for (let j = 0; j < 5; j++) {
@@ -110,4 +124,16 @@ function draw() {
     }
 
     btn.show()
+
+
+    textSize(END_FONT_SIZE)
+    fill(BLACK)
+    textAlign(LEFT, BOTTOM)
+    textStyle(BOLD)
+
+    text(
+        endtext,
+        PADDING,
+        H - (PADDING + BTN_SIZE[1] + PADDING)
+    )
 }

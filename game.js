@@ -2,7 +2,6 @@ class Game {
     constructor(rows = 10, repeating = true, easy_mode = false) {
         this._r = rows
         this._again = repeating
-        console.log(easy_mode)
         this._hard = !easy_mode
 
         this.grid_pl = []
@@ -51,7 +50,6 @@ class Game {
             }
         }
 
-        console.log(this._hard, this._win_comb)
         if (this._hard) {
             for (let i = this.grid_pc[this.row].length - 1; i > 0; i--) {
                 const j = floor(random() * (i + 1));
