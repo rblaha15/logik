@@ -142,7 +142,7 @@ function draw() {
             boxes[i][j].show();
         }
     }
-    if (end) {
+    if (end && endtext == "LOSE") {
 
         for (let j = 0; j < answer.length; j++) {
             answer[j].show()
